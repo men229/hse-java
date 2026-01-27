@@ -28,7 +28,7 @@ public class RubiksCube {
     }
 
     public void front(RotateDirection direction) {
-
+        System.out.println(1);
     }
     
     public Edge[] getEdges() {
