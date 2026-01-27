@@ -34,7 +34,7 @@ jobs:
       - name: Copy test files
         run: |
           echo "Copying test data"
-          cp -r hidden-tests/src/test/java/* main-repo/src/test/java/
+          cp -R hidden-tests/src/test/resources src/test/resources
           echo "Test data copied"
           rm -rf hidden-tests
       
