@@ -14,7 +14,7 @@ jobs:
       checks: write
     
     steps:
-      - name: Checkout PR code (works for forks)
+      - name: Checkout PR code
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
