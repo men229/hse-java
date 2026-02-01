@@ -1,6 +1,7 @@
 package hse.java.practice.task1;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 public class Edge {
 
@@ -25,6 +26,35 @@ public class Edge {
 
     public CubeColor[][] getParts() {
         return parts;
+    }
+
+    private void transpose() {
+        for (int i = 0; i < 3; i++) {
+            for (int j = i + 1; j < 3; j++) {
+                CubeColor temp = parts[i][j];
+                parts[i][j] = parts[j][i];
+                parts[j][i] = temp;
+            }
+        }
+    }
+
+    private void reverse() {
+        for (int i = 0; i < 3; i++) {
+            Collections.reverse(Arrays.asList(parts[i]));
+        }
+    }
+
+    public void rotate(RotateDirection direction) {
+        switch (direction) {
+            case CLOCKWISE -> {
+                transpose();
+                reverse();
+            }
+            case COUNTERCLOCKWISE -> {
+                reverse();
+                transpose();
+            }
+        }
     }
 
     public void setParts(CubeColor[][] parts) {
