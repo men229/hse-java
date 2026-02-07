@@ -68,6 +68,7 @@ jobs:
             if (msg.startsWith('atm:')) add('**/atm/*Test');
             if (msg.startsWith('html:')) add('**/html/*Test');
             if (msg.startsWith('randomset:')) add('**/randomSet/*Test');
+            if (msg.startsWith('cube:')) add('**/CubeSimpleTest');
 
             // If no task prefix, run all tests
             core.setOutput('pattern', patterns.length ? patterns.join(',') : '');
