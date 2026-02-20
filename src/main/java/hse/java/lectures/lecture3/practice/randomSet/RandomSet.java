@@ -24,10 +24,11 @@ public class RandomSet<T extends Comparable<T>> {
     private int size = 0;
 
     private void add_array(T x) {
-        if (size / 2 > randomArray.length) {
+        if (size * 2 > randomArray.length) {
             randomArray = Arrays.copyOf(randomArray, randomArray.length * 2);
         }
         randomArray[size] = x;
+        size += 1;
     }
 
     private int nodeSize(Node<T> n) {
@@ -48,7 +49,6 @@ public class RandomSet<T extends Comparable<T>> {
         }
         return root;
     }
-
 
 
     private Node<T>[] split(Node<T> root, T x) {
@@ -95,7 +95,6 @@ public class RandomSet<T extends Comparable<T>> {
         new_node.index = size;
 
         add_array(value);
-        size += 1;
 
         Node<T>[] res = split(root, value);
         Node<T> l1 = merge(res[0], new_node);
@@ -124,25 +123,26 @@ public class RandomSet<T extends Comparable<T>> {
         Node<T> right = res[1];
 
         right = removeMin(right);
-
         root = merge(left, right);
-
 
         int id_val = target.index;
         int id_end = size - 1;
 
-        randomArray[id_val] = randomArray[id_end];
-        randomArray[id_end] = null;
-
-        Node<T> end_node = descent(root, (T) randomArray[id_val]);
-
-        end_node.index = id_end;
 
         size -= 1;
+        if (id_val != id_end) {
+            randomArray[id_val] = randomArray[id_end];
+            Node<T> end_node = descent(root, (T) randomArray[id_val]);
+            if (end_node != null) {
+
+                end_node.index = id_end;
+            }
+
+        }
+        randomArray[id_end] = null;
 
         return true;
     }
-
 
     public boolean contains(T value) {
         return descent(root, value) != null;
