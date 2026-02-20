@@ -1,8 +1,6 @@
 package hse.java.lectures.lecture3.practice.randomSet;
 
 import java.util.Random;
-import java.util.Arrays;
-
 
 public class RandomSet<T extends Comparable<T>> {
 
@@ -25,7 +23,10 @@ public class RandomSet<T extends Comparable<T>> {
 
     private void add_array(T x) {
         if (size * 2 > randomArray.length) {
-            randomArray = Arrays.copyOf(randomArray, randomArray.length * 2);
+            int newLen = randomArray.length * 2;
+            Object[] newArr = new Object[newLen];
+            System.arraycopy(randomArray, 0, newArr, 0, randomArray.length);
+            randomArray = newArr;
         }
         randomArray[size] = x;
         size += 1;
@@ -133,7 +134,7 @@ public class RandomSet<T extends Comparable<T>> {
         if (id_val != id_end) {
             randomArray[id_val] = randomArray[id_end];
             Node<T> end_node = descent(root, (T) randomArray[id_val]);
-            end_node.index = id_end;
+            end_node.index = id_val;
         }
         randomArray[id_end] = null;
 
