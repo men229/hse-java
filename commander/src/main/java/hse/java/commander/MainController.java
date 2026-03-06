@@ -11,14 +11,17 @@ import java.util.stream.Stream;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 
 public class MainController {
 
+    @FXML
+    public Button copy;
+    @FXML
+    public Button move;
+    @FXML
+    public Button delete;
     boolean focused = false;
 
     Path leftDir = null;
