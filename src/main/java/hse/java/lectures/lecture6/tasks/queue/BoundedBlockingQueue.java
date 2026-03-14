@@ -33,6 +33,7 @@ public class BoundedBlockingQueue<T> {
                 key.wait();
             }
             queue.add(item);
+            key.notifyAll();
         }
     }
 
@@ -41,7 +42,9 @@ public class BoundedBlockingQueue<T> {
             if(size == 0){
                 key.wait();
             }
+            key.notifyAll();
             return queue.element();
+
         }
     }
 
