@@ -43,7 +43,8 @@ public class BoundedBlockingQueue<T> {
                 key.wait();
             }
             key.notifyAll();
-            return queue.element();
+
+            return queue.remove();
 
         }
     }
