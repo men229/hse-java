@@ -11,7 +11,6 @@ public class BoundedBlockingQueue<T> {
     private final Object key = new Object();
 
     int capacity = 0;
-    int size = 0;
 
     final Queue<T> queue = new ArrayDeque<>();
 
@@ -29,9 +28,10 @@ public class BoundedBlockingQueue<T> {
             if (item == null) {
                 throw new NullPointerException("Item must be not null");
             }
-            if (size > capacity) {
+            if (queue.size() > capacity) {
                 key.wait();
             }
+
             queue.add(item);
             key.notifyAll();
         }
@@ -39,7 +39,7 @@ public class BoundedBlockingQueue<T> {
 
     public T take() throws InterruptedException {
         synchronized (key){
-            if(size == 0){
+            if(queue.isEmpty()){
                 key.wait();
             }
             key.notifyAll();
@@ -50,7 +50,7 @@ public class BoundedBlockingQueue<T> {
 
     public int size() {
         synchronized (key) {
-            return size;
+            return queue.size();
         }
     }
 
