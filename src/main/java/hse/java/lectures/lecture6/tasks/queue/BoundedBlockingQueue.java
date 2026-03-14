@@ -28,7 +28,7 @@ public class BoundedBlockingQueue<T> {
             if (item == null) {
                 throw new NullPointerException("Item must be not null");
             }
-            if (queue.size() >= capacity) {
+            while(queue.size() >= capacity) {
                 key.wait();
             }
 
@@ -38,11 +38,11 @@ public class BoundedBlockingQueue<T> {
     }
 
     public T take() throws InterruptedException {
-        synchronized (key){
-            if(queue.isEmpty()){
+        synchronized (key) {
+            while (queue.isEmpty()) {
                 key.wait();
             }
-            T el = queue.remove();
+            T el = queue.poll();
             key.notifyAll();
 
             return el;
@@ -57,8 +57,6 @@ public class BoundedBlockingQueue<T> {
     }
 
     public int capacity() {
-        synchronized (key) {
-            return capacity;
-        }
+        return capacity;
     }
 }
