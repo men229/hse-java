@@ -1,5 +1,6 @@
 package hse.java.lectures.lecture6.tasks.synchronizer;
 
+import javax.management.monitor.Monitor;
 import java.util.List;
 
 public class Synchronizer {
@@ -22,11 +23,19 @@ public class Synchronizer {
      * in strict ascending id order.
      */
     public void execute() {
-        // add monitor and sync
+        StreamingMonitor streamingMonitor = new StreamingMonitor(tasks.size(), ticksPerWriter);
+
+        for (var stream : tasks){
+            stream.attachMonitor(streamingMonitor);
+        }
+
         for (StreamWriter writer : tasks) {
             Thread worker = new Thread(writer, "stream-writer-" + writer.getId());
             worker.setDaemon(true);
             worker.start();
+        }
+        while (!streamingMonitor.check()){
+
         }
     }
 
