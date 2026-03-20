@@ -34,9 +34,14 @@ public class Synchronizer {
             worker.setDaemon(true);
             worker.start();
         }
-        while (!streamingMonitor.check()){
 
+        try {
+            streamingMonitor.check();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
+
+
     }
 
 }

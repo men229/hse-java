@@ -20,8 +20,10 @@ public class StreamingMonitor {
         this.ticksPerWriter = size * ticksPerWriter;
     }
 
-    public boolean check(){
-        return cnt == ticksPerWriter;
+    public synchronized void check() throws InterruptedException {
+        while(cnt < ticksPerWriter){
+            wait();
+        }
     }
 
     public synchronized void tick(int idCome, Runnable onTick, PrintStream output, String message) throws InterruptedException {
